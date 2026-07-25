@@ -15,8 +15,8 @@ class TaskModel {
   TaskType type; // locally we can keep TaskType, defaulting to task
   String whatsappNumber;
   String email;
-  bool remind1d; // Ingatkan H-1 Hari
-  bool remind1h; // Ingatkan H-1 Jam
+  bool remind1d;
+  bool remind1h;
   bool isWaSent;
   String deviceId;
   DateTime createdAt;
@@ -33,7 +33,7 @@ class TaskModel {
     }
   }
 
-  // Backwards compatibility getters for existing widgets
+
   String get title => name;
   set title(String val) => name = val;
   String? get notes => description;
@@ -48,13 +48,13 @@ class TaskModel {
     required this.name,
     this.description,
     required this.deadline,
-    TaskPriority? priority, // Kept for backward compatibility, ignored
+    TaskPriority? priority,
     this.isDone = false,
     this.type = TaskType.task,
     this.whatsappNumber = '',
     this.email = '',
-    this.remind1d = true, // Default to true
-    this.remind1h = true, // Default to true
+    this.remind1d = true,
+    this.remind1h = true,
     this.isWaSent = false,
     this.deviceId = '',
     DateTime? createdAt,
@@ -65,12 +65,12 @@ class TaskModel {
     final now = DateTime.now();
     final daysLeft = deadline.difference(now).inHours / 24.0;
     
-    // Weight priority: high priority gets an urgency boost (subtracted score)
+
     double priorityWeight = 0.0;
     if (priority == TaskPriority.high) {
-      priorityWeight = -2.0; // high priority is treated as 2 days closer
+      priorityWeight = -2.0;
     } else if (priority == TaskPriority.low) {
-      priorityWeight = 2.0;  // low priority is treated as 2 days further
+      priorityWeight = 2.0;
     }
 
     return daysLeft + priorityWeight;
@@ -114,7 +114,7 @@ class TaskModel {
     );
   }
 
-  /// Convert TaskModel to local database JSON
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,

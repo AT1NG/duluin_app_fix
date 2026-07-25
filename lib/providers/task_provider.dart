@@ -460,9 +460,26 @@ class TaskProvider extends ChangeNotifier {
   }
 
   Future<void> clearCompleted() async {
+    final completedTasks = _tasks.where((t) => t.isDone).toList();
     _tasks.removeWhere((t) => t.isDone);
     await _persist();
     notifyListeners();
+
+    for (final task in completedTasks) {
+      await _cancelNotificationsFor(task.id);
+      try {
+        final success = await ApiService.deleteTask(task.id);
+        if (!success) {
+          _deletedTaskIds.add(task.id.toString());
+        }
+      } catch (e) {
+        debugPrint('Failed to delete completed task ${task.id} in Firestore: $e');
+        _deletedTaskIds.add(task.id.toString());
+      }
+    }
+    if (_deletedTaskIds.isNotEmpty) {
+      await _persistDeletedTaskIds();
+    }
   }
 
   Future<void> updateOdooUrl(String url) async {

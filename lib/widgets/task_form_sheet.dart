@@ -32,6 +32,7 @@ class _TaskFormSheetState extends State<TaskFormSheet> {
   late DateTime _selectedDate;
   TimeOfDay? _selectedTime;
   bool _isSaving = false;
+  bool _showTimeError = false;
 
   @override
   void initState() {
@@ -93,12 +94,22 @@ class _TaskFormSheetState extends State<TaskFormSheet> {
         child: child!,
       ),
     );
-    if (picked != null) setState(() => _selectedTime = picked);
+    if (picked != null) {
+      setState(() {
+        _selectedTime = picked;
+        _showTimeError = false;
+      });
+    }
   }
 
   Future<void> _save() async {
     if (_isSaving) return;
     if (!_formKey.currentState!.validate()) return;
+
+    if (_selectedTime == null) {
+      setState(() => _showTimeError = true);
+      return;
+    }
 
     setState(() => _isSaving = true);
 
@@ -253,6 +264,14 @@ class _TaskFormSheetState extends State<TaskFormSheet> {
                       ),
                     ],
                   ),
+                  if (_showTimeError)
+                    const Padding(
+                      padding: EdgeInsets.only(top: 6, left: 4),
+                      child: Text(
+                        'Pilih waktu deadline terlebih dahulu',
+                        style: TextStyle(color: Colors.redAccent, fontSize: 12),
+                      ),
+                    ),
                   const SizedBox(height: 16),
 
                   // WhatsApp Number Field (Optional)
