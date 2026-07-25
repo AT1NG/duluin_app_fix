@@ -43,3 +43,14 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Ignore bridge dependencies and credentials
+bridge/node_modules/
+bridge/*.json
+
+# Ignore web project
+duluin-web/
+
+# Reference/study material for splitting work among group members — not part of the app
+pembagian-tugas/
+
