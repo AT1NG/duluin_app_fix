@@ -72,11 +72,11 @@ class _MainNavigationState extends State<MainNavigation> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      _navItem(0, Icons.home_rounded, Icons.home_outlined, 'Beranda'),
-                      _navItem(1, Icons.list_alt_rounded, Icons.list_outlined, 'Tugas'),
-                      _navItem(2, Icons.calendar_month_rounded, Icons.calendar_month_outlined, 'Kalender'),
-                      _navItem(3, Icons.bar_chart_rounded, Icons.bar_chart_outlined, 'Progres'),
-                      _navItem(4, Icons.info_rounded, Icons.info_outlined, 'Tentang'),
+                      Expanded(child: _navItem(0, Icons.home_rounded, Icons.home_outlined, 'Beranda')),
+                      Expanded(child: _navItem(1, Icons.list_alt_rounded, Icons.list_outlined, 'Tugas')),
+                      Expanded(child: _navItem(2, Icons.calendar_month_rounded, Icons.calendar_month_outlined, 'Kalender')),
+                      Expanded(child: _navItem(3, Icons.bar_chart_rounded, Icons.bar_chart_outlined, 'Progres')),
+                      Expanded(child: _navItem(4, Icons.info_rounded, Icons.info_outlined, 'Tentang')),
                     ],
                   ),
                 ),
@@ -97,7 +97,8 @@ class _MainNavigationState extends State<MainNavigation> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeInOut,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         decoration: BoxDecoration(
           color: isActive
               ? AppColors.primary.withOpacity(0.12)

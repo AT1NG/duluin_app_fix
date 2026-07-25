@@ -2,10 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-// Local-dev convenience: load bridge/.env (gitignored, never touches the
-// deployed container which gets its env vars from Portainer directly) so
-// `node firestore_waha_bridge.js` works without manually `set`/`$env:`-ing
-// vars every terminal session. Real env vars always win if already set.
+
 const envPath = path.join(__dirname, '.env');
 if (fs.existsSync(envPath)) {
   for (const line of fs.readFileSync(envPath, 'utf8').split('\n')) {
@@ -72,7 +69,7 @@ async function sendEmail(to, subject, text) {
   }
 }
 
-// Inisialisasi Firebase Admin SDK
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
@@ -80,16 +77,10 @@ admin.initializeApp({
 const db = admin.firestore();
 const WAHA_URL = process.env.WAHA_URL || 'http://100.90.108.92:442/api/sendText';
 const WAHA_API_KEY = process.env.WAHA_API_KEY || '';
-// Must match an actual WORKING session name on the WAHA dashboard, not a
-// made-up default: this WAHA instance has no "default" session, only
-// per-number sessions (e.g. "081188883576").
+
 const WAHA_SESSION = process.env.WAHA_SESSION || 'default';
 
-// `deadline` strings coming from the app are naive "YYYY-MM-DD HH:mm:ss" wall-clock
-// values in the phone's timezone (WIB, Asia/Jakarta = UTC+7), not the server's. The
-// server (Docker container) may run in a different timezone (usually UTC), so we
-// must convert explicitly instead of letting `new Date(y,m,d,h,mi,s)` assume the
-// server's local timezone.
+
 const PHONE_TIMEZONE_OFFSET_MINUTES = 7 * 60; // WIB = UTC+7
 
 console.log('🤖 ======================================================');
@@ -149,13 +140,11 @@ async function checkReminders() {
         continue;
       }
 
-      // Plain epoch-millisecond diff: both `deadline` and `now` are correct
-      // absolute instants at this point, so no server-timezone-dependent
-      // "alignment" is needed.
+
       const diffMs = deadline.getTime() - now.getTime();
       const diffMinutes = Math.floor(diffMs / (1000 * 60));
 
-      // Pengingat H-1 Hari
+
       if (diffMinutes > 60 && diffMinutes <= 1440) {
         if (remind1d && whatsappNumber && !isWaSent1d) {
           console.log(`⏰ Menyiapkan pengingat WA H-1 Hari untuk tugas "${name}" ke ${whatsappNumber}...`);
@@ -182,7 +171,7 @@ async function checkReminders() {
         }
       }
 
-      // Pengingat H-1 Jam
+
       if (diffMinutes > 0 && diffMinutes <= 60) {
         if (remind1h && whatsappNumber && !isWaSent1h) {
           console.log(`⏰ Menyiapkan pengingat WA H-1 Jam untuk tugas "${name}" ke ${whatsappNumber}...`);
