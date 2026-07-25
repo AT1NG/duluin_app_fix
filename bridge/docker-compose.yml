@@ -1,0 +1,8 @@
+services:
+  duluin-bridge:
+    build: .
+    restart: unless-stopped
+    environment:
+      - FIREBASE_SERVICE_ACCOUNT=${FIREBASE_SERVICE_ACCOUNT}
+      - WAHA_URL=${WAHA_URL}
+      - WAHA_API_KEY=${WAHA_API_KEY}
