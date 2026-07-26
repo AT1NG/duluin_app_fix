@@ -47,7 +47,7 @@ class AboutScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   const Text(
-                    'v1.0.0',
+                    'v1.0.1',
                     style: TextStyle(
                       color: AppColors.textHint,
                       fontSize: 12,
@@ -86,49 +86,6 @@ class AboutScreen extends StatelessWidget {
                   _sectionTitle('Kontak Pengingat Default'),
                   const SizedBox(height: 10),
                   const _DefaultContactCard(),
-                  const SizedBox(height: 24),
-
-                  // Firebase Database Status Settings
-                  _sectionTitle('Status Cloud Database'),
-                  const SizedBox(height: 10),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: AppColors.glassCard,
-                      borderRadius: BorderRadius.circular(18),
-                      border: Border.all(color: Colors.white.withOpacity(0.08)),
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.cloud_done_rounded, color: AppColors.success, size: 26),
-                        const SizedBox(width: 14),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                'Firebase Firestore',
-                                style: TextStyle(
-                                  color: AppColors.textPrimary,
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              SizedBox(height: 3),
-                              Text(
-                                'Terhubung dan tersegregasi otomatis berdasarkan Device ID Anda.',
-                                style: TextStyle(
-                                  color: AppColors.textSecondary,
-                                  fontSize: 11,
-                                  height: 1.3,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   const SizedBox(height: 24),
 
                   // Device ID Card
@@ -193,70 +150,6 @@ class AboutScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 24),
-
-                  // Team Card
-                  _sectionTitle('Tim Pengembang'),
-                  const SizedBox(height: 10),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: AppColors.glassCard,
-                      borderRadius: BorderRadius.circular(18),
-                      border: Border.all(color: Colors.white.withOpacity(0.08)),
-                    ),
-                    child: Column(
-                      children: [
-                        ...[
-                          ('Arfian Setiawan', '230102025'),
-                          ('Makbul Insan Darojat', '230102070'),
-                          ('Muhammad Faathir Al Mukhrij', '230102084'),
-                          ('Muhammad Ilyas Satria Fauzan', '230102090'),
-                          ('Sultan Fadhilah Hilmiqashmal', '230102123'),
-                        ].map(
-                          (m) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 6),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.person_outline_rounded,
-                                    color: AppColors.primaryLight, size: 16),
-                                const SizedBox(width: 10),
-                                Expanded(
-                                  child: Text(
-                                    m.$1,
-                                    style: const TextStyle(
-                                        color: AppColors.textPrimary,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ),
-                                Text(
-                                  m.$2,
-                                  style: const TextStyle(
-                                      color: AppColors.textHint,
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        const Divider(color: Colors.white10),
-                        const SizedBox(height: 8),
-                        const Text(
-                          'Teknik Informatika — IF23A\nUniversitas Muhammadiyah Bandung\n2026',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: AppColors.textHint,
-                            fontSize: 11,
-                            height: 1.6,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   const SizedBox(height: 30),
                 ],
               ),
